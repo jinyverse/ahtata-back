@@ -3,7 +3,7 @@ import { CreateMemberDto } from './dto/create.dto';
 import { MemberService } from './member.service';
 import { Member } from './schemas/members.schema';
 
-@Controller('member')
+@Controller('members')
 export class MemberController {
   constructor(private memberService: MemberService) {}
 

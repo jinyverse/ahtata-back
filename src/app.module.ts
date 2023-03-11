@@ -14,6 +14,10 @@ import { MemberModule } from './member/member.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
+      cors: {
+        origin: 'http://localhost:3000',
+        credentials: true,
+      },
     }),
     MemberModule,
   ],
