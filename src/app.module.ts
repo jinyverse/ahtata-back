@@ -6,11 +6,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MemberModule } from './member/member.module';
+import { SongModule } from './song/song.module';
+import { ArtistModule } from './artist/artist.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(`${process.env.DB_URL}`),
+    MongooseModule.forRoot(process.env.DB_URL),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
@@ -20,6 +22,8 @@ import { MemberModule } from './member/member.module';
       },
     }),
     MemberModule,
+    SongModule,
+    ArtistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
