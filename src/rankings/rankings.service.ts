@@ -23,22 +23,23 @@ export class RankingsService {
    */
   async listingRank(rankingData: CreateRankingDto) {
     // 3번방법
+    const limit = 100;
     const nowRanking = await this.rankingModel
-      .find({ $lte: { rank: 100 } })
+      .find({ $lte: { rank: limit } })
       .sort({ rank: 1 })
-      .limit(100);
+      .limit(limit);
     // 현재 랭킹등재가 1000개 미만이고, 마지막랭킹보다 낮다면 그냥 만들기
     if (nowRanking.length === 0) {
       const listingRank = await this.rankingModel.create({ ...rankingData, rank: nowRanking.length + 1 });
       console.log('첫번째임');
       return listingRank;
     }
-    if (nowRanking.length < 100 && nowRanking[nowRanking.length - 1].score >= rankingData.score) {
+    if (nowRanking.length < limit && nowRanking[nowRanking.length - 1].score >= rankingData.score) {
       const listingRank = await this.rankingModel.create({ ...rankingData, rank: nowRanking.length + 1 });
-      console.log('100등이하이고 ', nowRanking[nowRanking.length - 1].score, '보다 작거나 같음');
+      console.log(limit,'등이하이고 ', nowRanking[nowRanking.length - 1].score, '보다 작거나 같음');
       return listingRank;
     }
-    if (nowRanking.length < 100 && nowRanking[0].score < rankingData.score) {
+    if (nowRanking.length < limit && nowRanking[0].score < rankingData.score) {
       for (let i = 0; i < nowRanking.length; i++) {
         await this.rankingModel.findByIdAndUpdate(nowRanking[i]._id, { $set: { rank: i + 2 } });
       }
