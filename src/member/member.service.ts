@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Member, MemberDocument } from './schemas/members.schema';
 import * as bcrypt from 'bcrypt';
 import { CreateMemberDto } from './dto/create.dto';
+import { sleep } from 'src/app.controller';
 
 @Injectable()
 export class MemberService {
@@ -14,6 +15,7 @@ export class MemberService {
 
   async getMember(id: string): Promise<Member> {
     const member = await this.memberModel.findById(id);
+    sleep(3);
     return member;
   }
 

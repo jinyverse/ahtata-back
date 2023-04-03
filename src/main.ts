@@ -4,12 +4,18 @@ import { setupSwagger } from './configs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  setupSwagger(app);
   app.enableCors({
     origin: '*',
     methods: ['GET', 'POST', 'DELETE', 'PATCH'],
   });
-  // swagger 셋업
-  setupSwagger(app);
+
+  // 종료
+  app.enableShutdownHooks();
+  process.on('SIGTERM', async () => {
+    console.log('끝');
+    await app.close();
+  });
 
   await app.listen(9500);
 }
