@@ -1,4 +1,4 @@
-name: CI CD
+name: TEST
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
 
 jobs:
   deploy:
-    # needs: test
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
       - run: touch private_key && chmod 600 private_key
@@ -21,6 +21,7 @@ jobs:
           sh deploy.sh
           '
   # test:
+  # needs: deploy
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v3
