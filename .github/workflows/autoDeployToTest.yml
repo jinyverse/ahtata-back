@@ -16,20 +16,8 @@ jobs:
       - run: echo "${{secrets.PRIVATE_EC2_PEM}}" > private_key
       - name: connection EC2 and deploy
       - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
-          cd ahtata-back &&
-          git pull origin main &&
-          sh deploy.sh
+            cd ahtata-back &&
+            git pull origin main &&
+            sh deploy.sh
           '
-  # test:
-  # needs: deploy
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: 'npm'
-  #     - run: npm ci
-  #     - run: npm run build
-  #     - run: npm test
+  
