@@ -9,14 +9,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
       - run: touch private_key && chmod 600 private_key
       - run: echo "${{secrets.EC2_PEM}}" > private_key && cat private_key
       - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
-            cd ahtata-back &&
-            git pull origin main &&
-            sh deploy.sh
+          cd ahtata-back &&
+          git pull origin main &&
+          sh deploy.sh
           '
-  
+##
