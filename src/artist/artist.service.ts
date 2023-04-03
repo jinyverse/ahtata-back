@@ -21,7 +21,6 @@ export class ArtistService {
             result = await this.artistModel.find({}).sort({ artistName: 1 }).limit(10);
             break;
           case 'rank':
-            //
             result = await this.artistModel
               .find({})
               .sort({
@@ -51,6 +50,7 @@ export class ArtistService {
       return result;
     }
 
+    // 흐하하하
     if (sortType === 1) {
       switch (sortColumn) {
         case 'name':
