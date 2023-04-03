@@ -16,7 +16,7 @@ async function bootstrap() {
     console.log('끝', aa);
     await app.close();
   });
-  console.log(process.env.DB_URL, '-URL');
   await app.listen(9500);
 }
+console.log(process.env.DB_URL, '-URL');
 bootstrap();
