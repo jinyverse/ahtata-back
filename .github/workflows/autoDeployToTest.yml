@@ -17,6 +17,6 @@ jobs:
       - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
           cd ahtata-back &&
           git pull origin main &&
-          sh deploy.sh
+          sudo sh deploy.sh
           '
 ##
