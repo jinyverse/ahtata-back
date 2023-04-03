@@ -19,4 +19,3 @@ jobs:
           git pull origin main &&
           sudo sh deploy.sh
           '
-##
