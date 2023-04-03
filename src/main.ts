@@ -12,8 +12,8 @@ async function bootstrap() {
 
   // 종료
   app.enableShutdownHooks();
-  process.on('SIGTERM', async () => {
-    console.log('끝');
+  process.on('SIGTERM', async (aa) => {
+    console.log('끝', aa);
     await app.close();
   });
 

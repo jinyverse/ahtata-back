@@ -16,6 +16,7 @@ export class MemberService {
   async getMember(id: string): Promise<Member> {
     const member = await this.memberModel.findById(id);
     sleep(3);
+    console.log('보내준다.');
     return member;
   }
 
