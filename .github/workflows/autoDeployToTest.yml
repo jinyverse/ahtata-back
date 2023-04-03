@@ -27,8 +27,8 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Create private_key and chmod
+      - uses: actions/checkout@v3
       - run: touch private_key && chmod 600 private_key
       - run: echo "${{secrets.PRIVATE_EC2_PEM}}" > private_key
       - name: connection EC2 and deploy
