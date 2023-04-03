@@ -18,5 +18,6 @@ async function bootstrap() {
   });
   await app.listen(9500);
 }
+
 console.log(process.env.DB_URL, '-URL');
 bootstrap();
