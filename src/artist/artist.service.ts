@@ -2,12 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Artist, ArtistDocument } from './schemas/artist.schema';
+import { Song } from 'src/song/schemas/song.schema';
+import { DonationsService } from 'src/donations/donations.service';
+import { SongService } from 'src/song/song.service';
 
 @Injectable()
 export class ArtistService {
   constructor(
     @InjectModel(Artist.name)
     private artistModel: Model<ArtistDocument>,
+    private donationService: DonationsService,
+    private songService: SongService,
   ) {}
   async allArtist(sortColumn: string, sortType: number, curser: string | number) {
     sortType = Number(sortType);
@@ -100,5 +105,18 @@ export class ArtistService {
     } else {
       throw new Error('꺼져');
     }
+  }
+
+  async artistData(artistId: string) {
+    const result = {
+      infomations: null,
+      donations: [],
+    };
+    const artistInfo = await this.artistModel.findById(artistId);
+    const donations = await this.donationService.getDonations(artistId, 'first');
+    result.donations = donations;
+    result.infomations = artistInfo;
+    /**도네이션 로직 만들고 도네이션 페이지네이션도 구현 */
+    return result;
   }
 }

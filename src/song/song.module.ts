@@ -8,5 +8,6 @@ import { SongService } from './song.service';
   imports: [MongooseModule.forFeature([{ name: Song.name, schema: SongSchema }])],
   controllers: [SongController],
   providers: [SongService],
+  exports: [SongService],
 })
 export class SongModule {}

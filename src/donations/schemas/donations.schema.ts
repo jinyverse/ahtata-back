@@ -7,7 +7,7 @@ export type DonationsDocument = Donations & Document;
 @Schema()
 export class Donations {
   @Prop()
-  ownerArtistId: Artist;
+  ownerArtistId: string;
 
   @Prop()
   text: string;

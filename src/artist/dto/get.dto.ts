@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decora
 @InputType()
 export class GetArtistDto {
   @ApiProperty({
-    example: '1 or -1 ,  1이 ASC, 2가 DISC',
+    example: '1 or -1 ,  1이 ASC, -1가 DISC',
     description: 'sortType',
   })
   sortType: number;
