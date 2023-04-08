@@ -13,6 +13,6 @@ describe('ArtistService', () => {
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(service.allArtist('1', 1, 'first')).toBeDefined();
   });
 });
