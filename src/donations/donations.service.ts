@@ -3,22 +3,30 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateDonationsDto } from './dto/create.dto';
 import { Donations, DonationsDocument } from './schemas/donations.schema';
+import { Member, MemberDocument } from '../member/schemas/members.schema';
 
 @Injectable()
 export class DonationsService {
   constructor(
-    @InjectModel(Donations.name)
-    private donationsModel: Model<DonationsDocument>,
+    @InjectModel(Donations.name) private donationsModel: Model<DonationsDocument>,
+    @InjectModel(Member.name) private memberModel: Model<MemberDocument>,
   ) {}
 
-  async createDonations(data: CreateDonationsDto) {
-    const newData = await this.donationsModel.create(data);
-    console.log(newData);
+  async createDonation(createDonationDto: CreateDonationsDto){
+    const { givePoint, nickname, text } = createDonationDto;
+    const member = await this.memberModel.findOne({ nickname }).exec();
 
-    return newData._id;
+    if (!member) throw new HttpException('회원 정보를 찾을 수 없습니다.', HttpStatus.BAD_REQUEST);
+    if (member.point < givePoint) throw new HttpException('덕집력이 부족합니다', HttpStatus.BAD_REQUEST);
+
+    member.point -= givePoint;
+    await member.save();
+
+    const createdDonation = new this.donationsModel({ givePoint, text, member: member._id });
+    return createdDonation.save();
   }
 
-  async deleteDonations(id: string, nickname: string) {
+  async deleteDonation(id: string, nickname: string) {
     const donations = await this.donationsModel.findById(id);
     if (!donations) throw new HttpException('해당 게임데이터가 존재하지 않습니다.', HttpStatus.NOT_FOUND);
     if (nickname === donations.nickname) throw new HttpException('응원메시지의 작성자만 삭제가 가능합니다.', HttpStatus.FORBIDDEN);

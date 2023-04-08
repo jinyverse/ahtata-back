@@ -14,7 +14,7 @@ export class DonationsController {
   @ApiCreatedResponse({ status: 201, description: '저장된 donationsId 반환', type: String })
   async createData(@Body() Donations: CreateDonationsDto) {
     try {
-      const result = await this.DonationsService.createDonations(Donations);
+      const result = await this.DonationsService.createDonation(Donations);
       return result;
     } catch (err) {
       console.log(err);
@@ -28,7 +28,7 @@ export class DonationsController {
     const donationsId = data.donationsId;
     const nickname = data.nickname;
     try {
-      const deleteDonations = await this.DonationsService.deleteDonations(donationsId, nickname);
+      const deleteDonations = await this.DonationsService.deleteDonation(donationsId, nickname);
       return deleteDonations;
     } catch (err) {
       console.log(err.message);
