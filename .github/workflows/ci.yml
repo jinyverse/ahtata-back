@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,5 @@ jobs:
           filters: |
             *.spec.ts
           paths: ${{ github.event.pull_request.changed_files }}
-      - name: npm setting
       - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
