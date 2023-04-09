@@ -19,7 +19,7 @@ jobs:
         uses: dorny/paths-filter@v2.1.0
         with:
           filters: |
-            *.spec.ts
+            *.*.spec.ts
           paths: ${{ github.event.pull_request.changed_files }}
       - run: npm ci
       - run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
