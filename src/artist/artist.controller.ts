@@ -27,7 +27,7 @@ export class ArtistController {
 
   @Get('/:artistId')
   @ApiOperation({ summary: '아티스트 페이지 데이터', description: '아티스트 ID로 아티스트 페이지에 필요한 데이터를 받을 수 있음!' })
-  @ApiCreatedResponse({ status: 200, description: '배열로 옴', type: [Artist] })
+  @ApiCreatedResponse({ status: 200, description: '아티스트 정보와 응원메시지들이 각각 옴' })
   async getArtistData(@Param('artistId') id: string) {
     try {
       console.log(id);

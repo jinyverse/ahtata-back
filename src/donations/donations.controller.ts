@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Delete, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateDonationsDto } from './dto/create.dto';
 import { DeleteDonationsDto } from './dto/delete.dto';
@@ -32,6 +32,18 @@ export class DonationsController {
       return deleteDonations;
     } catch (err) {
       console.log(err.message);
+    }
+  }
+
+  @Get()
+  @ApiOperation({ summary: '응원메시지 페이지네이션', description: 'Query로 artistId와 cursor로 마지막 응원메시지 ID 를 보내세요' })
+  async get(@Query() getData: { cursor: string; artistId: string }) {
+    const { cursor, artistId } = getData;
+    try {
+      const donations = await this.DonationsService.getDonations(artistId, cursor);
+      return donations;
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_GATEWAY);
     }
   }
 }
