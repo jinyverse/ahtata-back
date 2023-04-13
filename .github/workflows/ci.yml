@@ -22,6 +22,6 @@ jobs:
             src:
               - 'src/**/*.spec.ts'
       - run: echo ${{ steps.change.outputs.src }}
-      - run: echo ${{ steps.change.outputs }}
+      - run: echo ${{ toJSON(steps.change.outputs) }}
       #- run: npm ci
       #- run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
