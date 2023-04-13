@@ -21,8 +21,8 @@ jobs:
           filters: |
             src:
               - 'src/**/*.spec.ts'
-      #    paths: ${{ github.event.pull_request.changed_files }}
-      - run: cat ${{ steps.find_changed_files.outputs.src }}
+            paths: ${{ github.event.pull_request.changed_files }}
+      - run: echo ${{ steps.find_changed_files.outputs.src }}
+      - run: echo ${{ steps.find_changed_files.outputs.paths }}
       #- run: npm ci
       #- run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
-
