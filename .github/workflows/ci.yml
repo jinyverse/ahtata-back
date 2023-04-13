@@ -16,11 +16,13 @@ jobs:
           cache: 'npm'
       - name: Find changed test files
         id: find_changed_files
-        uses: dorny/paths-filter@v2.1.0
+        uses: dorny/paths-filter@v2
         with:
           filters: |
-            */*.*.spec.ts
+            src:
+              - 'src/**/*.spec.ts'
           paths: ${{ github.event.pull_request.changed_files }}
+      - run: cat ${{ steps.find_changed_files.outputs.paths }}
       - run: npm ci
       - run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
-      - run: cat ${{ steps.find_changed_files.outputs.paths }}
+
