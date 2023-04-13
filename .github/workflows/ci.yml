@@ -15,13 +15,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Find changed test files
-        id: find_changed_files
+        id: change
         uses: dorny/paths-filter@v2
         with:
           filters: |
             src:
               - 'src/**/*.spec.ts'
-      - run: echo ${{ steps.find_changed_files.outputs.src }}
-      - run: echo ${{ steps.find_changed_files.outputs.src_files }}
+      - run: echo ${{ steps.change.outputs.src }}
+      - run: echo ${{ steps.change.outputs }}
       #- run: npm ci
       #- run: npm test -- --findRelatedTests ${{ steps.find_changed_files.outputs.paths }}
