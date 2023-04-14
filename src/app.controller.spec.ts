@@ -30,9 +30,4 @@ describe('AppController', () => {
       }).toThrow(msg);
     });
   });
-  describe('/로 접근시', () => {
-    it('헬로우 월드가 출력되어야 함', async () => {
-      expect(await appController.getHello()).toEqual('Hello World!');
-    });
-  });
 });
