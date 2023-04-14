@@ -14,13 +14,6 @@ describe('AppController', () => {
 
     appController = app.get<AppController>(AppController);
   });
-
-  describe('/로 접근시', () => {
-    it('헬로우 월드가 출력되어야 함', async () => {
-      expect(await appController.getHello()).toEqual('Hello World!');
-    });
-  });
-
   describe('sleep 함수 테스트', () => {
     it('sleep 1초, 5초', () => {
       expect(sleep(1)).toEqual(1);
@@ -37,8 +30,4 @@ describe('AppController', () => {
       }).toThrow(msg);
     });
   });
-  //이게 변경인건데?qwewqf?
-  // 변경점이 ewgweg있지롱wegewg~~
-  // 또 변경하기
-  // spec 변경
 });

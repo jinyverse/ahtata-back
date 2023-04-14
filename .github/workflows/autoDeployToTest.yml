@@ -1,19 +1,38 @@
-# name: CI CD
+name: CI/CD
 
-# on:
-#   push:
-#     branches: ['main']
+on:
+  pull_request:
+    branches: ['main']
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Find changed test files
+        id: change
+        uses: dorny/paths-filter@v2
+        with:
+          list-files: shell
+          filters: |
+            src:
+              - 'src/**/*.spec.ts'
+      - run: npm ci
+      - run: npm test --findRelatedTests ${{ steps.change.outputs.src_files }}
 
-#     steps:
-#       - uses: actions/checkout@v3
-#       - run: touch private_key && chmod 600 private_key
-#       - run: echo "${{secrets.EC2_PEM}}" > private_key && cat private_key
-#       - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
-#           cd ahtata-back &&
-#           git pull origin main &&
-#           sudo sh deploy.sh
-#           '
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: touch private_key && chmod 600 private_key
+      - run: echo "${{secrets.EC2_PEM}}" > private_key && cat private_key
+      - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
+          cd ahtata-back &&
+          git pull origin main &&
+          sudo sh deploy.sh
+          '
