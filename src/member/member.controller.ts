@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger/dist';
 import { ApiCreatedResponse } from '@nestjs/swagger/dist/decorators';
 import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
@@ -40,6 +40,7 @@ export class MemberController {
       const addNewMember = await this.memberService.addMember(createData);
       return addNewMember;
     } catch (err) {
+      throw new HttpException('이미 있는 닉네임 입니다.', HttpStatus.BAD_REQUEST);
       console.log(err.message);
     }
   }
@@ -52,6 +53,7 @@ export class MemberController {
       const member = await this.memberService.login(loginData);
       return member;
     } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
       console.log(err);
     }
   }
