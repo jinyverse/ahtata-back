@@ -18,6 +18,7 @@ jobs:
         id: change
         uses: dorny/paths-filter@v2
         with:
+          list-files: shell
           filters: |
             src:
               - 'src/**/*.spec.ts'
