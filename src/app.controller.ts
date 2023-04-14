@@ -7,7 +7,7 @@ export class AppController {
 
   @Get()
   async getHello() {
-    const a = sleep(1);
+    const a = sleep(5);
     console.log(a);
     return this.appService.getHello();
   }
