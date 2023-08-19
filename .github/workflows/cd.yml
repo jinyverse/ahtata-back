@@ -17,6 +17,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.RSPI_KEY }}
 
+      - name: SSH into server
+        run: |
+          ssh ubuntu@211.210.106.212 -p 22022 "
+          cd ahtata-back &&
+          git pull origin main &&
+          echo 'Complete CD JOB!'"
       # - run: touch private_key && chmod 600 private_key
       # - run: echo ${{secrets.EC2_PEM}} > private_key && cat private_key
       # - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 
