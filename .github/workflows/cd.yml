@@ -12,7 +12,7 @@ jobs:
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
       - name: Install apt-get
-        run: apt-get install sshpass
+        run: sudo apt-get install sshpass -y libxml2-utils
       - name: Connect Server and do Job
         run: sshpass -f "${{secrets.PW}}" "${{secrets.CONNECT_SERVER}}" '
           cd ahtata-back &&
