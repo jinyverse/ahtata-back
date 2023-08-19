@@ -20,7 +20,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.RSPI_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan your-server-ip >> ~/.ssh/known_hosts
+          ssh-keyscan ubuntu@211.210.106.212 -p 22022 >> ~/.ssh/known_hosts
 
 
       - name: SSH into server
