@@ -14,15 +14,14 @@ jobs:
       - name: Install apt-get
         run: sudo apt-get install sshpass -y libxml2-utils
       - name: Connect Server and do Job
-        run: sshpass -f ${{secrets.PW}} ${{secrets.CONNECT_SERVER}} '
-          cd ahtata-back &&
-          git pull origin main &&
-          echo "CD COMPLEATE!"
-          '
+        run: sshpass -f ${{secrets.PW}} ${{secrets.CONNECT_SERVER}} 
+
+
+
       # - run: touch private_key && chmod 600 private_key
-      # - run: echo "${{secrets.EC2_PEM}}" > private_key && cat private_key
-      # - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 '
+      # - run: echo ${{secrets.EC2_PEM}} > private_key && cat private_key
+      # - run: ssh -o StrictHostKeyChecking=no -i private_key ubuntu@13.124.107.224 
       #     cd ahtata-back &&
       #     git pull origin main &&
       #     sudo sh deploy.sh
-      #     '
+      #     
