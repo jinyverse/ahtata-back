@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: ${{secrets.CONNECT_SERVER}} '
+      - run: apt-get install sshpass
+      - run: sshpass -f "${{secrets.PW}}" "${{secrets.CONNECT_SERVER}}" '
           cd ahtata-back &&
           git pull origin main &&
           echo "CD COMPLEATE!"
