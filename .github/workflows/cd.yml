@@ -14,7 +14,7 @@ jobs:
       - name: Install apt-get
         run: sudo apt-get install sshpass -y libxml2-utils
       - name: Connect Server and do Job
-        run: sshpass -f "${{secrets.PW}}" "${{secrets.CONNECT_SERVER}}" '
+        run: sshpass -f ${{secrets.PW}} ${{secrets.CONNECT_SERVER}} '
           cd ahtata-back &&
           git pull origin main &&
           echo "CD COMPLEATE!"
