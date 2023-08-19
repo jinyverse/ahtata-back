@@ -11,12 +11,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
-      - name: Install apt-get
-        run: sudo apt-get install sshpass -y libxml2-utils
-      - name: Connect Server and do Job
-        run: sshpass -f ${{secrets.PW}} ${{secrets.CONNECT_SERVER}} 
 
-
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.RSPI_KEY }}
 
       # - run: touch private_key && chmod 600 private_key
       # - run: echo ${{secrets.EC2_PEM}} > private_key && cat private_key
