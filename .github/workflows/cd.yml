@@ -9,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: apt-get install sshpass
-      - run: sshpass -f "${{secrets.PW}}" "${{secrets.CONNECT_SERVER}}" '
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+      - name: Install apt-get
+        run: apt-get install sshpass
+      - name: Connect Server and do Job
+        run: sshpass -f "${{secrets.PW}}" "${{secrets.CONNECT_SERVER}}" '
           cd ahtata-back &&
           git pull origin main &&
           echo "CD COMPLEATE!"
